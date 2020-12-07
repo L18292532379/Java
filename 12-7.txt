@@ -1,0 +1,201 @@
+import java.sql.SQLOutput;
+import java.util.Scanner;
+import java.util.Random;
+
+public class scc {
+    public static void main(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int i = num.nextInt();
+        int k = 1;
+        while(k <= i){
+            for (int m = 1; m <= k; m++){
+                System.out.print(m+" * "+k+" = "+(m*k)+" ");
+            }
+            k++;
+            System.out.println();
+        }
+    }
+}
+  /*  public static void main(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int i = num.nextInt();
+        int m = i;
+        int k = 10;
+        while(i > 9){
+            if((i /10) > 9){
+                k *= 10;
+            }
+            i /= 10;
+        }
+        System.out.println(k);
+        i = m;
+        while(k > 9){
+            System.out.println(i / k);
+            i %= k;
+            k /= 10;
+        }
+        System.out.println(i);
+    }
+}*/
+/*    public static void main(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int i = num.nextInt();
+        int k = i;
+        while(i != 0){
+           if ((i & 1) ==1){
+                System.out.print("1");
+            }
+           else {
+               System.out.print("0");
+           }
+           i = i >>> 1;
+        }
+        System.out.println("\n");
+        k = k >> 1;
+        while(k != 0){
+            if ( (k & 1) == 1){
+                System.out.print("1");
+            }
+            else {
+                System.out.print("0");
+            }
+            k = k >>> 1;
+        }
+    }
+}*/
+ /*   public static void main(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int i = num.nextInt();
+        int k = 0;
+        while(i != 0){
+            if((i & 1) == 1){
+                k++;
+            }
+                i = i >>> 1;
+        }
+        System.out.println(k);
+    }
+}*/
+ /*   public static void main(String[] args) {
+        Scanner num1 = new Scanner(System.in);
+        Scanner num2 = new Scanner(System.in);
+        int i = num1.nextInt();
+        int j = num2.nextInt();
+        int min = Math.min(i, j);
+        while((min % i !=0) || (min % j != 0)){
+            min++;
+        }
+        System.out.println(min);
+    }
+}*/
+/*    public static void main(String[] args) {
+        int i = 1;
+        int j = 2;
+        double num = 0;
+        while(i <= 99){
+            num += 1/i;
+            i++;
+        }
+        while(j <= 100){
+            num -= 1/j;
+            j++;
+        }
+        System.out.println(num);
+    }
+}*/
+/*    public static void main(String[] args) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        for(int z = 100; z <= 999; z++){
+            i = z / 100;
+            j = (z % 100) /10;
+            k = z % 10;
+            if((i * i * i) + (j * j * j) + (k * k * k) == z){
+                System.out.println(z);
+            }
+        }
+    }
+}*/
+/*    public static void main(String[] args) {
+        int num = 0;
+        for(int i = 1; i <= 100; i++){
+            if(i % 10 == 9){
+                num++;
+            }
+            if(i / 10 == 9){
+                num++;
+            }
+        }
+        System.out.println(num);
+    }
+}*/
+ /*   public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            Random random = new Random(99999);
+            int randNum = random.nextInt(100)+1;//[1-101)
+            while (true) {
+                int inputNum = scanner.nextInt();
+                if(inputNum < randNum  ) {
+                    System.out.println("小");
+                }else if(inputNum > randNum) {
+                    System.out.println("大");
+                }else {
+                    System.out.println("==");
+                    break;
+                }
+            }
+        }
+    }*/
+/*    public static void main5(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int i = num.nextInt();
+        if (i >= 56){
+            System.out.println("老年");
+        }
+        if (i >= 29 && i <= 55){
+            System.out.println("中年");
+        }
+        if (i >= 19 && i <= 28){
+            System.out.println("青年");
+        }
+        if (i <= 18){
+            System.out.println("少年");
+        }
+    }
+}*/
+   /* public static void main4(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int i = num.nextInt();
+        int j = i -1;
+        while((i % j )!= 0){
+            if(j == 2) {
+                System.out.println("此数是素数");
+                break;
+            }
+                j--;
+            }
+        }
+    }
+*/
+
+/*    }
+    public static void main3(String[] args) {
+        int i = 0;
+        for(i = 100; i >= 2; i--){
+           for(int j = i - 1; (i % j) != 0; j--){
+               if(j==2)
+                   System.out.println(i);
+            }
+        }
+    }*/
+
+    /*public static void main2(String[] args) {
+    int i = 0;
+    for (i = 1000; i <= 2000; i++){
+        if(((i%4) == 0) &&( (i%100) !=0)){
+            System.out.println(i);
+        }
+    }
+    }*/
+
