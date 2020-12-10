@@ -1,0 +1,105 @@
+import java.util.Scanner;
+
+public class test {
+    public static void main(String[] args) {
+
+    }
+    //比大小重载
+    public static int max(int x, int y){
+        return x > y ? x : y;
+    }
+    public static float max(float x, float y){
+        return  x > y ? x : y;
+    }
+    public static double max(int x, float y, float z){
+        float i = max(y,z);
+        return  x > i ? x : i;
+    }
+    //3个数字中的最大值
+    public static int maxTwo(int x, int y){
+        return x > y ? x : y;
+    }
+    public static int maxThree(int x, int y, int z){
+        int i = maxTwo(x,y);
+        return i > z ? i : z;
+    }
+    public static void main5(String[] args) {
+        int max1 = 1;
+        int max2 = 2;
+        int max3 = 3;
+        int max = maxThree(max1,max2,max3);
+        System.out.println(max);
+    }
+    //阶乘和
+    public static int  factorialAnd(int x){
+        int emu = 1;
+        int sum = 1;
+        for (int j = x; j > 1; j--) {
+            for (int i = 1; i <= j; i++) {
+                emu *= i;
+            }
+            sum += emu;
+            emu = 1;
+        }
+        return sum;
+    }
+
+    public static void main4(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int x = num.nextInt();
+        int sum = factorialAnd(x);
+        System.out.println(sum);
+    }
+
+    //n的阶乘(方法)
+    public static int  factorial(int x){
+        int emu = 1;
+        for(int i = 1; i <= x; i++){
+           emu *= i;
+        }
+        return emu;
+    }
+
+    public static void main3(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int x = num.nextInt();
+        int emu = factorial(x);
+        System.out.println(emu);
+    }
+    //斐波那契数列
+    public  static int fun(int x){
+        if(x == 0){
+            return 0;
+        }
+        if(x == 1){
+            return 1;
+        }
+        else{
+            return fun(x-1)+fun(x-2);
+        }
+    }
+
+    public static void main2(String[] args) {
+        Scanner num = new Scanner(System.in);
+        int x = num.nextInt();
+        int emu = fun(x);
+        System.out.println(emu);
+    }
+
+    //只出现过一次的数
+    public static void main1(String[] args) {
+        int[] arr = {1,2,3,3,4,4,2};
+        int len = arr.length;
+        for (int i = 0; i < len; i++){
+            int sum = 0;
+            for(int j = 0; j< len; j++){
+                if(arr[i] == arr[j]){
+                    sum++;
+                }
+            }
+            if(sum == 1){
+                System.out.println(arr[i]);
+            }
+        }
+    }
+}
