@@ -1,0 +1,47 @@
+public class test {
+    public static void main(String[] args) {
+        
+    }
+    public static void fun3(int x){
+        if(x < 10){
+            System.out.print(x+" ");
+        }
+        else{
+            fun3(x / 10);
+            System.out.print((x % 10)+" ");
+
+        }
+    }
+    public static void main3(String[] args) {
+        fun3(1234);
+    }
+    //n的阶乘
+    public static int fun2(int x){
+        int sum = 1;
+        if(x > 1){
+            sum *= x*(fun2(x - 1));
+        }
+        else{
+            return 1;
+        }
+        return sum;
+    }
+    public static void main2(String[] args) {
+        int sum = fun2(5);
+        System.out.println(sum);
+    }
+    public static int fun(int x){
+        int sum = 0;
+        if (x > 1){
+            sum = x + fun(x-1);
+        }
+        else{
+            return 1;
+        }
+        return sum;
+    }
+    public static void main1(String[] args) {
+        int emu = fun(10);
+        System.out.println(emu);
+    }
+}
