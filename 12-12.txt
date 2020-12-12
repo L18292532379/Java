@@ -1,0 +1,58 @@
+public class test {
+    //初始化数组 1-100
+    public static int[] setArray(int[] a){
+        for (int i = 0; i < 100; i++){
+            a[i] = i+1;
+        }
+        return a;
+    }
+    //输出数组元素
+    public static void arrayOut(int[] a){
+        int len = a.length;
+        for (int i = 0; i < len; i++){
+            System.out.print(a[i]+" ");
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] a = new int[100];
+        int[] output = setArray(a);
+        for (int i : output) {
+            System.out.print(i+" ");
+        }
+    }
+    //数组乘2
+    public static void x2(int[] a){
+        int len = a.length;
+        for(int i = 0; i < len; i++){
+            a[i] *= 2;
+        }
+    }
+    //数组的和
+    public static int sum(int[] a){
+        int sum = 0;
+        int len = a.length;
+        for(int i = 0; i < len; i++){
+            sum += a[i];
+        }
+        return sum ;
+    }
+    //数组平均值
+    public static double avg(int[] a){
+        double sum = 0;
+        int len = a.length;
+        for(int i = 0; i < len; i++){
+            sum += a[i];
+        }
+        return sum / len;
+    }
+    public static void main1(String[] args) {
+        int[] a = {2,2,2,2,2,2,2,2,2};
+        double sum = avg(a);
+        System.out.println(sum);
+        x2(a);
+        for (int i : a) {
+            System.out.println(a[i]);
+        }
+    }
+}
