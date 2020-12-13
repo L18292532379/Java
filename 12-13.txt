@@ -1,0 +1,50 @@
+import java.util.Arrays;
+
+public class test {
+    //逆置数组
+    public static void inversion(int[] array){
+        
+    }
+    //二分法查找
+    public static void binarySearch(int[] array, int x){
+
+    }
+    //顺序查找
+    public static void find(int[] array, int x){
+        int len = array.length;
+        for (int i = 0; i < len; i++){
+            if(array[i] == x){
+                System.out.println("第 "+i+" 个元素");
+                break;
+            }
+        }
+    }
+    //数组平均值
+    public static double avg(int[] a){
+        double sum = 0;
+        int len = a.length;
+        for(int i = 0; i < len; i++){
+            sum += a[i];
+        }
+        return sum / len;
+    }
+    //数组最大值
+    public static int maxArray(int[] array){
+        int max = array[0];
+        int len = array.length;
+        for (int i = 1; i < len; i++){
+            if(max < array[i]){
+                max = array[i];
+            }
+        }
+        return max;
+    }
+    public static void main(String[] args) {
+        int[] arr1 = {1,2,3,4,5,6,7,8,9};
+        int max = maxArray(arr1);
+        System.out.println(max);
+        double mean = avg(arr1);
+        System.out.println(mean);
+        find(arr1,5);
+    }
+}
