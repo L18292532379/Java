@@ -1,0 +1,19 @@
+ public static boolean searchNum1(int[] nums,int n){ 
+ Arrays.sort(nums); 
+ int len = nums.length; 
+ int left = 0; 
+ int right = len -1; 
+ int mid; 
+ while (left <= right){ 
+ mid = (left + right) / 2; 
+ if(nums[mid] < n){ 
+ left = mid + 1; 
+ }else { 
+ if(nums[mid] > n){ 
+ right = mid - 1; 
+ }else 
+ return true; 
+ } 
+ } 
+ return false; 
+ } 
