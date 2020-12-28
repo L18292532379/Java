@@ -1,0 +1,50 @@
+public class Test {
+    //交换数组
+    public static void changArr(int[] arr1,int[] arr2){
+        int len = arr1.length;
+        int[] arr = new int[len];
+        for (int i = 0;i < len;i++){
+            arr[i] = arr1[i];
+        }
+        for (int j = 0;j < len;j++){
+            arr1[j] = arr2[j];
+        }
+        for (int i = 0;i < len;i++){
+            arr2[i] = arr[i];
+        }
+    }
+    //数组偶数在前 奇数在后
+    public static int[] arrChange(int[] arr) {
+        int len = arr.length;
+        int[] arr1 = new int[len];
+        int i = 0;
+        int j = len -1;
+        for (int k = 0; k < len; k++) {
+            if (arr[k] % 2 == 0) {
+                arr1[i] = arr[k];
+                i++;
+            }
+            else{
+               arr1[j] = arr[k];
+               j--;
+            }
+        }
+        return arr1;
+    }
+    public static void main(String[] args) {
+        int[] arr1 = {1,2,3,4,5,6,7,8,9};
+        int[] arr2 = {9,8,7,6,5,4,3,2,1};
+        changArr(arr1,arr2);
+        for (int i : arr1) {
+            System.out.print(i);
+        }
+        System.out.println();
+        for (int i : arr2) {
+            System.out.print(i);
+        }
+        /*int[] arr1 = arrChange(arr);
+        for (int i : arr1) {
+            System.out.println(i);
+        }*/
+    }
+}
