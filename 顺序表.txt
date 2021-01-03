@@ -1,0 +1,121 @@
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+public class MyArrayList {
+    //就地初始化
+    /*public int[] elem = new int[10];//数组
+    public int usedSize = 0;//有效数字计数器
+    */
+    private int[] elem;//引用类型，默认为null
+    private int usedSize;//实例变量，默认为0
+
+    public  MyArrayList(){
+        this.elem = new int[5];
+
+    }
+    public  MyArrayList(int capacity){
+        this.elem = new int[capacity];
+    }
+
+    // 打印顺序表
+    public void display() {
+        for (int i = 0;i < this.usedSize;i++){
+            System.out.print(this.elem[i]+" ");
+        }
+        System.out.println();
+    }
+    public boolean isFull(){
+        if (this.usedSize == this.elem.length){
+            return true;
+        }
+        return false;
+    }
+    //扩容
+    public void resize(){
+        this.elem = Arrays.copyOf(this.elem,2*this.elem.length);
+    }
+    // 在 pos 位置新增元素
+    public void add(int pos, int data) {
+        if (isFull()){
+            System.out.println("顺序表为满！");
+            resize();
+        }
+        if (pos > usedSize||pos < 0){
+            System.out.println("pos位置不合法！");
+            return;
+        }
+        //移动数据
+        for (int i = this.usedSize-1;i > pos-1;i--){
+            this.elem[i+1] = this.elem[i];
+        }
+        this.elem[pos] = data;
+        this.usedSize++;
+    }
+    //默认插入到数组的最后
+    public void add2(int data){
+        if (isFull()){
+            System.out.println("顺序表为满！");
+            resize();
+        }
+        this.elem[this.usedSize] = data;
+        this.usedSize++;
+    }
+    // 判定是否包含某个元素
+    public boolean contains(int toFind) {
+        for (int i = 0;i < this.usedSize;i++){
+            if(this.elem[i] == toFind){
+                return true;
+            }
+        }
+        return false;
+    }
+    // 查找某个元素对应的位置
+    public int search(int toFind) {
+        for (int i = 0;i < this.usedSize;i++){
+            if(this.elem[i] == toFind){
+                return i;
+            }
+        }
+        return -1;
+    }
+    // 获取 pos 位置的元素
+    public int getPos(int pos) {
+        if (pos >= this.usedSize||pos < 0) {
+            System.out.println("pos位置不合法");
+            return -1;
+        }else{
+            return this.elem[pos];
+        }
+    }
+    // 给 pos 位置的元素设为 value
+    public void setPos(int pos, int value) {
+        if (pos > this.usedSize||pos < 0) {
+            return;
+        }else{
+            this.elem[pos] = value;
+        }
+    }
+    //删除第一次出现的关键字key
+    public void remove(int key) {
+        //1.查找是否有key
+        int index = search(key);
+        if (index == -1){
+            System.out.println("不存在该数字。");
+            return;
+        }
+        //2.i = index   i < usdeSize-1
+        for (int i = index;i < this.usedSize;i++){
+                    this.elem[i] = this.elem[i+1];
+        }
+        this.usedSize--;
+    }
+    // 获取顺序表长度
+    public int size() {
+        return this.usedSize;
+    }
+    // 清空顺序表
+    public void clear() {
+        this.usedSize = 0;
+    }
+
+}
