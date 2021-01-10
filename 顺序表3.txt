@@ -1,0 +1,407 @@
+class Node {
+    public int val;
+    public Node next;//Node node = new Node(); node储存的是对象的地址，类型是Node，所以next是Node类型。
+    public Node(){
+
+    }
+    public Node(int val) {
+        this.val = val;
+    }
+}
+public class MylinkedList {
+    public Node head;//表示当前链表的头
+
+    public void createLinked() {
+        this.head = new Node(12);
+        Node node2 = new Node(22);
+        Node node3 = new Node(32);
+        Node node4 = new Node(42);
+        this.head.next = node2;
+        node2.next = node3;
+        node3.next = node4;
+    }
+
+    public void display() {
+        Node cur = this.head;
+        while (cur != null) {
+            System.out.println(cur.val);
+            cur = cur.next;
+        }
+    }
+
+    public void display(Node newHead) {
+        Node cur = newHead;
+        while (cur != null) {
+            System.out.println(cur.val);
+            cur = cur.next;
+        }
+    }
+
+    public Node findLastNode(){
+        Node cur = this.head;
+        while (cur.next != null){
+            cur = cur.next;
+        }
+        return cur;
+    }
+
+    public Node findLastTwoNode(){
+        if (this.head == null){
+            System.out.println("链表为空");
+            return null;
+        }
+        if (this.head.next == null){
+            System.out.println("只有一个节点");
+            return null;
+        }
+        Node cur = this.head;
+        while (cur.next.next != null){
+            cur = cur.next;
+        }
+        return cur;
+    }
+
+    public Node findN(int n){
+        if (this.head == null){
+            System.out.println("该链表为空");
+            return null;
+        }
+        if (n <= 0){
+            System.out.println("n太小了");
+            return null;
+        }
+        if (n > size()){
+            System.out.println("n太大了");
+            return null;
+        }
+        Node cur = this.head;
+        while (n > 1){
+            cur = cur.next;
+            n--;
+        }
+        return cur;
+    }
+
+    public int size(){
+        Node cur = this.head;
+        int count = 0;
+        while (cur != null){
+            cur = cur.next;
+            count++;
+        }
+        return count;
+    }
+
+    public boolean contains(int key){
+        Node cur = this.head;
+        while (cur != null){
+            if (cur.val == key){
+                return true;
+            }
+            cur = cur.next;
+        }
+        return false;
+    }
+    //头插法
+    public void addFirst(int data){
+        /*0.创建一个节点
+        Node node = new Node(data);
+        1.判断 列表是不是空的
+        if (this.head == null){
+            this.head = node;
+        }else {
+            //2.插入
+            node.next = this.head;
+            this.head = node;
+        }*/
+        //优化之后
+        //0.创建一个节点
+        Node node = new Node(data);
+        //1.插入
+        node.next = this.head;
+        this.head = node;
+    }
+    //尾插法
+    public void addLast(int data){
+        //0.new
+        Node node = new Node(data);
+
+        if (this.head == null){
+             this.head = node;
+        }else {
+            //找尾巴
+            Node cur = this.head;
+            while (cur.next != null){
+                cur = cur.next;
+            }
+            //插入
+            cur.next = node;
+        }
+
+    }
+    //找到index-1位置的节点的引用
+    public Node moveIndex(int index) {
+        Node cur = this.head;
+        int count = 0;
+        while (count != index-1) {
+            cur = cur.next;
+            count++;
+        }
+        return cur;
+    }
+    //任意位置插入，第一个数据节点为零号下标
+    public void addIndex(int index,int data) {
+        if (index < 0 || index > size()){
+            System.out.println("index不合法");
+            return;
+        }
+        if (index == 0){
+            addFirst(data);
+            return;
+        }
+        if (index == size()){
+            addLast(data);
+            return;
+        }
+
+        Node cur = moveIndex(index);
+        //cur保存的是index-1位置的节点的引用
+        Node node = new Node(data);
+        node.next = cur.next;
+        cur.next = node;
+    }
+    //找到关键字kry的前驱 如果有，返回前驱节点的引用；如果没有，返回null；
+    public  Node searchPrev(int key) {
+        Node cur = this.head;
+        while (cur.next == null) {
+            if (cur.next.val == key) {
+                return cur;
+            }
+            cur = cur.next;
+        }
+        return null;
+    }
+    //删除第一次出现关键字为key的节点
+    public void remove(int key) {
+        if (this.head == null){
+            return;
+        }
+        if (this.head.val == key){
+            this.head = this.head.next;
+            return;
+        }
+        //正常的进行删除
+        Node cur = searchPrev(key);
+        if (cur == null) {
+            System.out.println("删除失败，没有找到目标数据");
+        }else {
+            Node del = cur.next;
+            cur.next = del.next;
+        }
+    }
+    //删除所有值为key的节点
+    public void removeAllKey(int key) {
+        if(this.head == null){
+            return;
+        }
+        Node prev = this.head;
+        Node cur = this.head.next;
+        while (cur != null) {
+            if (cur.val == key) {
+                prev.next = cur.next;
+            }else {
+                prev = cur;
+            }
+            cur = cur.next;
+        }
+        if (this.head.val == key) {
+            this.head = this.head.next;
+        }
+    }
+
+    public void clear() {
+        this.head = null;
+    }
+
+    //反转链表
+    public Node reverseList() {
+        Node cur = this.head;
+        Node prev = null;
+        Node newHead = null;
+        while (cur != null) {
+            Node curNext = cur.next;
+            if (curNext == null) {
+                newHead = cur;
+            }
+            cur.next = prev;
+            prev = cur;
+            cur = curNext;
+        }
+        return newHead;
+    }
+    //头插法反转链表
+    public Node reverseList2() {
+        Node cur = this.head;
+        Node prev = null;
+        while (cur != null) {
+            Node curNext = cur.next;
+            cur.next = prev;
+            prev = cur;
+            cur = curNext;
+        }
+        return prev;
+    }
+    //返回链表的中间节点，如果有两个，则返回后一个
+    //一般水平版
+    public Node returnMid1() {
+        Node cur = this.head;
+        int len = size()/2;
+        while (len != 0) {
+            cur = cur.next;
+            len--;
+        }
+        return cur;
+    }
+    //高水平
+    public Node returnMid() {
+        Node fast = this.head;
+        Node slow = this.head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        return slow;
+    }
+    //找到倒数第K个节点
+    public Node lsatK (int k) {
+        Node slow = this.head;
+        Node fast = this.head;
+        while (k != 1) {
+            if(fast.next != null) {
+                fast = fast.next;
+                k--;
+            }else {
+                return null;//代表K值过大
+            }
+        }
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+    //将两个有序的链表合并（有序）
+    public Node mergeTwoList(Node headA,Node headB) {
+        Node newHead = new Node(-1);
+        Node tmp = newHead;
+        while (headA != null && headB != null) {
+            if (headA.val <= headB.val) {
+                tmp.next = headA;
+                headA = headA.next;
+            }else {
+                tmp.next = headB;
+                headB = headB.next;
+            }
+            tmp = tmp.next;
+        }
+        //代码走到这里，说明两个链表 一个为空  一个不为空
+        if (headA != null) {
+            tmp.next = headA;
+        }
+        if (headB != null) {
+            tmp.next = headB;
+        }
+        return newHead.next;
+    }
+    //给一个值，链表中大于该值的，放在前边，且不改变链表顺序
+    public Node partition(Node pHead,int x) {
+        if (pHead == null) return null;
+        Node bs = null;
+        Node be = null;
+        Node as = null;
+        Node ae = null;
+        Node cur = pHead;
+        while (cur != null) {
+            if (cur.val < x) {
+                if (bs == null) {
+                    //说明一个节点都没有的情况下
+                    bs = cur;
+                    be = cur;
+                }else {
+                    //说明已经有节点了
+                    be.next = cur;
+                    be = be.next;
+                }
+
+            }else {
+                if (as == null) {
+                    as = cur;
+                    ae = cur;
+                }else {
+                    ae.next = cur;
+                    ae = ae.next;
+                }
+            }
+            cur = cur.next;
+        }
+        if (bs == null) {
+            return as;
+        }
+        be.next = as;
+
+        if (as != null) {
+            //说明最后一段肯定有数据
+            ae.next = null;
+        }
+        return bs;
+    }
+    //删除链表中重复的节点
+    public Node deleteDuplication(Node pHead) {
+        if (pHead == null) return null;
+        Node newHead = new Node(-1);
+        Node tmp = newHead;
+        Node cur = pHead;
+        while (cur != null) {
+            if (cur.next != null && cur.val == cur.next.val) {
+                while (cur.val == cur.next.val) {
+                    cur = cur.next;
+                }
+                cur = cur.next;
+            } else {
+                tmp.next = cur;
+                cur = cur.next;
+                tmp = tmp.next;
+            }
+        }
+        tmp.next = null;
+        return newHead.next;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
