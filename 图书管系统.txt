@@ -1,0 +1,419 @@
+book：
+
+package book;
+
+public class Book {private String name;
+    private String author;
+    private int price;
+    private String type;
+    private boolean status;//false
+
+    public Book(String name, String author, int price, String type) {
+        this.name = name;
+        this.author = author;
+        this.price = price;
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "name='" + name + '\'' +
+                ", author='" + author + '\'' +
+                ", price=" + price +
+                ", type='" + type + '\'' +
+                /*", status=" + status +*/
+                ((status == true) ? " 借出" : " 未借出")+
+                '}';
+    }
+}
+bookList
+
+package book;
+
+public class BookList {
+
+    private Book[] books;
+    private int usedSize;
+    public BookList(){
+
+    }
+    public BookList(Book[] books) {
+        this.books = new Book[10];
+        books[0] = new Book("三国演义","罗贯中",32,"小说");
+        books[1] = new Book("西游记","吴承恩",42,"小说");
+        books[2] = new Book("水浒传","施耐庵",52,"小说");
+        this.usedSize = 3;
+    }
+
+    public void setBooks(int pos,Book book) {
+        this.books[pos] = book;
+    }
+
+    public Book getBook(int pos) {
+        return this.books[pos];
+    }
+
+    public int getUsedSize() {
+        return usedSize;
+    }
+
+    public void setUsedSize(int usedSize) {
+        this.usedSize = usedSize;
+    }
+}
+operation
+
+package operation;
+
+import book.Book;
+import book.BookList;
+
+import java.util.Scanner;
+
+public class AddOperation implements IOperation {
+
+    @Override
+    public void work(BookList bookList) {
+        System.out.println("添加书籍");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入图书的名字");
+        String name = scanner.nextLine();
+        System.out.println("请输入图书的作者");
+        String author = scanner.nextLine();
+        System.out.println("请输入图书的价格");
+        int price = scanner.nextInt();
+        System.out.println("请输入图书的类型");
+        String type = scanner.next();
+        Book book = new Book(name,author,price,type);
+
+        int currentSize = bookList.getUsedSize();//3
+
+        bookList.setBooks(currentSize,book);
+        bookList.setUsedSize(currentSize+1);
+
+    }
+}
+package operation;
+
+import book.Book;
+import book.BookList;
+
+import java.util.Scanner;
+
+public class BorrowOperation implements IOperation{
+
+    @Override
+    public void work(BookList bookList) {
+        System.out.println("借阅书籍");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入要借阅的书名");
+        String name = scanner.nextLine();
+
+        for (int i = 0; i < bookList.getUsedSize(); i++) {
+            Book book = bookList.getBook(i);
+            if (book.getName().equals(name)) {
+                //说明有这本书！
+                //逻辑：把这本书的借阅状态修改为true
+                book.setStatus(true);
+                System.out.println(book);
+                return;
+            }
+        }
+        System.out.println("没有你要借阅的图书！");
+    }
+}
+package operation;
+
+import book.Book;
+import book.BookList;
+
+import java.util.Scanner;
+
+public class DelOperation implements IOperation{
+
+    @Override
+    public void work(BookList bookList) {
+        System.out.println("删除书籍");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入要删除的书名");
+        String name = scanner.nextLine();
+        int i = 0;
+        for (; i < bookList.getUsedSize(); i++) {
+            Book book = bookList.getBook(i);
+            if(book.getName().equals(name)) {
+                break;
+            }
+        }
+        if(i >= bookList.getUsedSize()) {
+            System.out.println("没有要删除的这本书!");
+            return;
+        }
+        int pos = i;
+        for(int j = pos;j < bookList.getUsedSize()-1;j++) {
+            Book book = bookList.getBook(j+1);
+            bookList.setBooks(j,book);
+        }
+        int currentSize = bookList.getUsedSize();
+        bookList.setUsedSize(currentSize-1);
+        System.out.println("删除书籍完毕！");
+    }
+}
+package operation;
+
+import book.Book;
+import book.BookList;
+
+public class DispalyOperation implements IOperation{
+    @Override
+    public void work(BookList bookList) {
+        System.out.println("展示书书籍");
+        for (int i = 0; i < bookList.getUsedSize(); i++) {
+            Book book = bookList.getBook(i);
+            System.out.println(book);
+        }
+    }
+}
+package operation;
+
+import book.BookList;
+
+public class ExitOperation implements IOperation{
+    @Override
+    public void work(BookList bookList) {
+        System.out.println("推出系统");
+        System.exit(1);
+    }
+}
+package operation;
+
+import book.Book;
+import book.BookList;
+
+import java.util.Scanner;
+
+public class FindOperation implements IOperation{
+    @Override
+    public void work(BookList bookList) {
+        System.out.println("查找书籍");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入要查找的书名");
+        String name = scanner.nextLine();
+
+        for (int i = 0; i < bookList.getUsedSize(); i++) {
+            Book book = bookList.getBook(i);
+            if (book.getName().equals(name)) {
+                System.out.println("有这本书！");
+                System.out.println(book);
+                return;
+            }
+        }
+        System.out.println("没有这本书");
+
+
+    }
+}
+package operation;
+
+import book.BookList;
+
+public interface IOperation {
+    void work(BookList bookList);
+}
+package operation;
+
+import book.Book;
+import book.BookList;
+
+import java.util.Scanner;
+
+public class ReturnOperation implements IOperation{
+    @Override
+    public void work(BookList bookList) {
+        System.out.println("归还书籍");
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入要归还的书名");
+        String name = scanner.nextLine();
+
+        for (int i = 0; i < bookList.getUsedSize(); i++) {
+            Book book = bookList.getBook(i);
+            if(book.getName().equals(name)) {
+                book.setStatus(false);
+                System.out.println(book);
+                return;
+            }
+        }
+        System.out.println("没有你要归还的这本书！");
+    }
+}
+user
+
+package user;
+
+import operation.*;
+
+import java.util.Scanner;
+
+public class AdminUser extends User{
+    public AdminUser(String name) {
+        super(name);
+        this.operations = new IOperation[]{
+                new ExitOperation(),
+                new FindOperation(),
+                new AddOperation(),
+                new DelOperation(),
+                new DispalyOperation()
+        };
+    }
+
+    /**
+     * 返回你要执行的对应的操作
+     * @return
+     */
+    @Override
+    public int menu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("管理员的菜单");
+        System.out.println("=======================");
+        System.out.println("hello "+ this.name + " 欢迎来到图书馆系统");
+        System.out.println("1.查找图书");
+        System.out.println("2.新增图书");
+        System.out.println("3.删除图书");
+        System.out.println("4.显示图书");
+        System.out.println("0.退出系统");
+        System.out.println("=======================");
+        int choice = scanner.nextInt();
+        return choice;
+    }
+}
+package user;
+
+import javafx.beans.binding.BooleanExpression;
+import operation.*;
+
+import java.util.Scanner;
+
+public class NormaUser extends User{
+    public NormaUser(String name) {
+        super(name);
+        this.operations = new IOperation[]{
+                new ExitOperation(),
+                new FindOperation(),
+                new BorrowOperation(),
+                new ReturnOperation()
+        };
+    }
+
+    @Override
+    public int menu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("普通用户的菜单");
+        System.out.println("=======================");
+        System.out.println("hello "+ this.name + " 欢迎来到图书馆系统");
+        System.out.println("1.查找图书");
+        System.out.println("2.借阅图书");
+        System.out.println("3.归还图书");
+        System.out.println("0.退出系统");
+        System.out.println("=======================");
+        int choice = scanner.nextInt();
+        return choice;
+
+    }
+}
+package user;
+
+import book.BookList;
+import operation.IOperation;
+
+public abstract class User {
+
+    public String name;
+    public IOperation[] operations;
+
+    public User(String name) {
+        this.name = name;
+    }
+
+    public abstract int menu();
+
+    public void doOperation(int choice, BookList bookList) {
+        this.operations[choice].work(bookList);
+    }
+
+}
+main
+
+import book.BookList;
+import user.AdminUser;
+import user.NormaUser;
+import user.User;
+
+import java.util.Scanner;
+
+public class Main {
+    public static User login() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("请输入你的姓名");
+        String name = scanner.nextLine();
+        System.out.println("请输入你的身份：1-> 管理员 0-> 普通用户");
+        int choice = scanner.nextInt();
+        if (choice == 1) {
+            return new AdminUser(name);
+        }else {
+            return new NormaUser(name);
+        }
+    }
+
+    public static void main(String[] args) {
+        BookList bookList = new BookList();
+        //1.登录 user会引用一个对象 这个对象可能是AdminUser NormaUser，
+        User user = login();
+        while (true) {
+            //会调用user引用的对象的menu方法，返回对应的选择
+            int choice = user.menu();
+            //拿choice去调用对应类的 work方法
+            //这个work方法，怎么执行，交给doOperation
+            user.doOperation(choice,bookList);
+        }
+    }
+}
